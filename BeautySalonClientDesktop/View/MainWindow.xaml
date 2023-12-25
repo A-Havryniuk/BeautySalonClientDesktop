@@ -1,0 +1,64 @@
+﻿<Window x:Class="BeautySalonClientDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BeautySalonClientDesktop"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <!-- Style for buttons -->
+        <Style x:Key="CommonButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF3498DB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3498DB"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FF2C3E50">
+        <Border BorderBrush="#FF3498DB" BorderThickness="2" CornerRadius="10" Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Client Data" Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Margin="0,20,0,10"/>
+
+                <DataGrid ItemsSource="{Binding Clients}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
+                          SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                          Grid.Row="1" Background="Transparent" BorderThickness="0" RowBackground="#FF2C3E50" AlternatingRowBackground="#FF2C3E50"
+                          RowHeaderWidth="0" Foreground="White" BorderBrush="#FF3498DB">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Foreground="#FF3498DB"/>
+                        <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Foreground="#FF3498DB"/>
+                        <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}" Foreground="#FF3498DB"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Foreground="#FF3498DB"/>
+                        <DataGridTextColumn Header="Address" Binding="{Binding Address}" Foreground="#FF3498DB"/>
+
+                        <!-- Add Delete button to each row -->
+                        <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete" Style="{StaticResource CommonButtonStyle}" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Foreground" Value="#FF3498DB"/>
+                            <Setter Property="Background" Value="#FF2C3E50"/>
+                            <Setter Property="BorderBrush" Value="#FF3498DB"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                            <Setter Property="Padding" Value="5"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
